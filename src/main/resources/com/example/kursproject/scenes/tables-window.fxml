@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.kursproject.controllers.TablesController">
+    <ImageView fitHeight="519.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/main.jpg"/>
+    </ImageView>
+    <Label fx:id="main_menu_amount_of_funds" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="760.0"
+           layoutY="14.0" prefHeight="17.0" prefWidth="126.0" text="0.00 ₽" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="15.0"/>
+        </font>
+    </Label>
+    <Button cache="true" layoutX="325.0" layoutY="48.0" mnemonicParsing="false"
+            onAction="#onGoToIncomeWindowButtonClick"
+            prefHeight="25.0" prefWidth="250.0" text="Открыть таблицу доходов"/>
+    <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onGoToExpensesWindowButtonClick"
+            prefHeight="25.0" prefWidth="250.0" text="Открыть таблицу расходов"/>
+    <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" onAction="#onGoToFamilyMembersWindowButtonClick"
+            prefHeight="25.0" prefWidth="250.0" text="Открыть таблицу членов семьи"/>
+    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onGoToSourcesIncomeWindowButtonClick"
+            prefHeight="25.0" prefWidth="250.0" text="Открыть таблицу источников дохода"/>
+    <Button layoutX="325.0" layoutY="184.0" mnemonicParsing="false" onAction="#onGoToCategoriesIncomeWindowButtonClick"
+            prefHeight="25.0" prefWidth="250.0" text="Открыть таблицу категорий доходов"/>
+    <Button layoutX="325.0" layoutY="218.0" mnemonicParsing="false"
+            onAction="#onGoToSubcategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0"
+            text="Открыть таблицу подкатегорий дохода"/>
+    <Button layoutX="325.0" layoutY="252.0" mnemonicParsing="false"
+            onAction="#onGoToCategoriesExpenditureWindowButtonClick" prefHeight="25.0" prefWidth="250.0"
+            text="Открыть таблицу категорий расходов"/>
+    <Button layoutX="325.0" layoutY="286.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0"
+            prefWidth="250.0" text="Назад"/>
+    <Label layoutX="555.0" layoutY="14.0" text="Общее количество средств:" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="15.0"/>
+        </font>
+    </Label>
+</AnchorPane>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.SourcesIncomeController">
+    <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../images/income.jpg" />
+    </ImageView>
+    <Label layoutX="23.0" layoutY="6.0" text="Источники дохода" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
+        <columns>
+            <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID" />
+            <TableColumn fx:id="column1" editable="false" prefWidth="422.0" resizable="false" sortable="false" text="Наименование" />
+            <TableColumn fx:id="column2" editable="false" prefWidth="130.0" resizable="false" sortable="false" text="ID категории дохода" />
+            <TableColumn fx:id="column3" editable="false" prefWidth="267.0" resizable="false" sortable="false" text="Описание" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+    <Button layoutX="837.0" layoutY="10.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Назад" textAlignment="CENTER" />
+    <Button layoutX="586.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenAdditionWin" prefHeight="30.0" prefWidth="95.0" text="Добавить" />
+    <Button layoutX="791.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenDeleteWin" prefHeight="30.0" prefWidth="95.0" text="Удалить" />
+    <Button layoutX="689.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenEditWin" prefHeight="30.0" prefWidth="95.0" text="Изменить" />
+    <Button layoutX="758.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRefreshButtonClick" text="Обновить" />
+    <TextField fx:id="field_search" alignment="CENTER" layoutX="586.0" layoutY="384.0" onKeyReleased="#onInputMethodTextChanged" prefHeight="30.0" prefWidth="300.0" promptText="Поиск по таблице">
+        <font>
+            <Font name="Arial Bold" size="14.0" />
+        </font>
+    </TextField>
+</AnchorPane>
