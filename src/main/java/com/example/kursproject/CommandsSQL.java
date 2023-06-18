@@ -262,7 +262,7 @@ public class CommandsSQL {
         alert.showAndWait();
     }
 
-    public static <T> boolean checkID(int getID, String tableName) {
+    public static boolean checkID(int getID, String tableName) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
