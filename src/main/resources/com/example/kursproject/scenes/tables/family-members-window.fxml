@@ -35,7 +35,6 @@
             <Font name="Arial Bold" size="14.0" />
         </font>
     </TextField>
-    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView"
-            text="Включить режим просмотра"/>
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" text="Включить режим просмотра"/>
 
 </AnchorPane>

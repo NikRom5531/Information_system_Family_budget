@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
             prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.kursproject.controllers.views.ViewCategoriesIncomeController">
+            fx:controller="com.example.kursproject.controllers.main.CategoriesIncomeController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../images/income.jpg"/>
     </ImageView>

@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
             prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.kursproject.controllers.views.ViewCategoriesExpenseController">
+            fx:controller="com.example.kursproject.controllers.main.CategoriesExpenseController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../images/income.jpg"/>
     </ImageView>
@@ -24,8 +24,7 @@
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97"
                prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID"/>
-            <TableColumn fx:id="column1" editable="false" prefWidth="819.0" resizable="false" sortable="false"
+            <TableColumn fx:id="column1" editable="false" prefWidth="857.0" resizable="false" sortable="false"
                          text="Наименование"/>
         </columns>
         <columnResizePolicy>
@@ -49,4 +48,5 @@
             <Font name="Arial Bold" size="14.0"/>
         </font>
     </TextField>
+    <Button layoutX="597.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoTable" text="Включить режим таблиц"/>
 </AnchorPane>

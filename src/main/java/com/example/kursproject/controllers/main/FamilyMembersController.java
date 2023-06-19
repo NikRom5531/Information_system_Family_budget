@@ -78,11 +78,8 @@ public class FamilyMembersController {
     }
 
     @FXML
-    protected void onGoBackButtonClick() throws IOException { //TODO оставить только URL_VIEW
-        if (NAME_TABLE != null) {
-            if (NAME_TABLE.equals(FAMILY_MEMBERS)) ControlStages.changeScene(URLs.URL_TABLES);
-            else if (NAME_TABLE.equals(FAMILY_MEMBERS_V)) ControlStages.changeScene(URLs.URL_VIEWS);
-        } else ControlStages.changeScene(URLs.URL_MAIN);
+    protected void onGoBackButtonClick() throws IOException {
+        ControlStages.changeScene(URLs.URL_TABLES);
     }
 
     @FXML

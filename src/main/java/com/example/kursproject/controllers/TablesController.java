@@ -14,37 +14,37 @@ public class TablesController {
 
     @FXML
     protected void onGoToIncomeWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_INCOME_T);
+        ControlStages.changeScene(URLs.URL_INCOME_V);
     }
 
     @FXML
     protected void onGoToExpensesWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_EXPENSES_T);
+        ControlStages.changeScene(URLs.URL_EXPENSES_V);
     }
 
     @FXML
     protected void onGoToFamilyMembersWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_FAMILY_MEMBER_T);
+        ControlStages.changeScene(URLs.URL_FAMILY_MEMBER_V);
     }
 
     @FXML
     protected void onGoToSourcesIncomeWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_INCOME_SOURCE_T);
+        ControlStages.changeScene(URLs.URL_INCOME_SOURCES_V);
     }
 
     @FXML
     protected void onGoToCategoriesIncomeWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_INCOME_CATEGORIES_T);
+        ControlStages.changeScene(URLs.URL_INCOME_CATEGORIES_V);
     }
 
     @FXML
     protected void onGoToSubcategoriesIncomeWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_INCOME_SUBCATEGORIES_T);
+        ControlStages.changeScene(URLs.URL_INCOME_SUBCATEGORIES_V);
     }
 
     @FXML
     protected void onGoToCategoriesExpenditureWindowButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_EXPENSE_CATEGORIES_T);
+        ControlStages.changeScene(URLs.URL_EXPENSE_CATEGORIES_V);
     }
 
     @FXML

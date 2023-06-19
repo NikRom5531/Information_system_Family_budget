@@ -1,5 +1,6 @@
 package com.example.kursproject.controllers.main;
 
+import com.example.kursproject.URLs;
 import com.example.kursproject.classesTable.CategoriesExpense;
 import com.example.kursproject.CommandsSQL;
 import com.example.kursproject.ControlStages;
@@ -15,6 +16,7 @@ import java.util.Collections;
 
 public class CategoriesExpenseController {
     private static final String EXPENSE_CATEGORIES = "expense_categories";
+    private static final String EXPENSE_CATEGORIES_V = "expensecategoriesview";
     public TextField field_search;
     @FXML
     private TableView<CategoriesExpense> tableView;
@@ -22,14 +24,18 @@ public class CategoriesExpenseController {
     private TableColumn<CategoriesExpense, Integer> column0;
     @FXML
     private TableColumn<CategoriesExpense, String> column1;
+    private String NAME_TABLE;
 
     private void initData() {
-        CommandsSQL.fillTable(tableView, EXPENSE_CATEGORIES, CategoriesExpense.class);
+        CommandsSQL.fillTable(tableView, NAME_TABLE, CategoriesExpense.class);
     }
 
     @FXML
     protected void initialize() {
-        column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+        if (ControlStages.getSceneURL().equals(URLs.URL_EXPENSE_CATEGORIES_T)) {
+            column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+            NAME_TABLE = EXPENSE_CATEGORIES;
+        } else NAME_TABLE = EXPENSE_CATEGORIES_V;
         column1.setCellValueFactory(new PropertyValueFactory<>("name"));
         initData();
     }
@@ -60,7 +66,7 @@ public class CategoriesExpenseController {
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene("scenes/tables-window.fxml");
+        ControlStages.changeScene(URLs.URL_TABLES);
     }
 
     @FXML
@@ -74,7 +80,7 @@ public class CategoriesExpenseController {
     }
 
     private void searchOnField() {
-        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, EXPENSE_CATEGORIES, CategoriesExpense.class));
+        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, NAME_TABLE, CategoriesExpense.class));
     }
     private void interactionAddition() {
         CategoriesExpense item = General.createInputDialog(
@@ -117,5 +123,14 @@ public class CategoriesExpenseController {
                 General.successfully("удалено");
             }
         } else General.ErrorWindow("Не была выбрана строка для удаления!");
+    }
+    @FXML
+    protected void gotoTable() throws IOException {
+        ControlStages.changeScene(URLs.URL_EXPENSE_CATEGORIES_T);
+    }
+
+    @FXML
+    protected void gotoView() throws IOException {
+        ControlStages.changeScene(URLs.URL_EXPENSE_CATEGORIES_V);
     }
 }

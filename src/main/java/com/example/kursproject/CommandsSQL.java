@@ -11,7 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandsSQL {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
@@ -20,6 +22,21 @@ public class CommandsSQL {
 
     public static <T> void fillTable(TableView<T> tableView, String nameTable, Class<T> tClass) {
         tableView.setItems(readDataFromTable(nameTable, tClass));
+    }
+
+    public static void executeUpdateQuery(String query, Object[] values) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            // Выполнение SQL-запроса
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                for (int i = 0; i < values.length; i++) {
+                    statement.setObject(i + 1, values[i]);
+                }
+                statement.executeUpdate();
+            }
+            System.out.println("Данные успешно записаны в базу данных.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static <T> ObservableList<T> readDataFromTable(String tableName, Class<T> objectType) {
@@ -33,7 +50,7 @@ public class CommandsSQL {
                     for (int i = 1; i <= metaData.getColumnCount(); i++) {
                         String columnName = metaData.getColumnName(i);
                         Object value = resultSet.getObject(i);
-                        try {
+                        try { // TODO проблемы с таблицами VIEW
                             java.lang.reflect.Field field = objectType.getDeclaredField(columnName);
                             field.setAccessible(true);
                             if (field.getType().getTypeName().equals("double"))
@@ -59,8 +76,41 @@ public class CommandsSQL {
         }
         return results;
     }
-
+    public static ObservableList<Map<String, Object>> readDataFromTable_V(String tableName) { //TODO возможно не нужна
+        ObservableList<Map<String, Object>> results = FXCollections.observableArrayList();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String selectQuery = "SELECT * FROM " + tableName + " ORDER BY id";
+            try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(selectQuery)) {
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                while (resultSet.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        String columnName = metaData.getColumnName(i);
+                        Object value = resultSet.getObject(i);
+                        if (value instanceof BigDecimal) {
+                            value = ((BigDecimal) value).doubleValue();
+                        } else if (value instanceof String strValue) {
+                            if (strValue.equals("true")) {
+                                value = true;
+                            } else if (strValue.equals("false")) {
+                                value = false;
+                            }
+                        }
+                        item.put(columnName, value);
+                    }
+                    results.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ErrorMessageSQL(e);
+        }
+        return results;
+    }
     public static <T> void insertDataIntoTable(String tableName, T data) {
+        System.out.println(data.toString());
+        System.out.println();
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String insertQuery = generateInsertQuery(tableName, data);
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {

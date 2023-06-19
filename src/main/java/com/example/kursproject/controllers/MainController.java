@@ -24,6 +24,6 @@ public class MainController {
     }
 
     public void onOpenWindowViews() throws IOException {
-        ControlStages.changeScene(URLs.URL_VIEWS);
+//        ControlStages.changeScene(URLs.URL_VIEWS);
     }
 }

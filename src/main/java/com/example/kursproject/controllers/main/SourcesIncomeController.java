@@ -3,6 +3,7 @@ package com.example.kursproject.controllers.main;
 import com.example.kursproject.CommandsSQL;
 import com.example.kursproject.ControlStages;
 import com.example.kursproject.General;
+import com.example.kursproject.URLs;
 import com.example.kursproject.classesTable.SourcesIncome;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class SourcesIncomeController {
     private static final String INCOME_SOURCES = "income_sources";
+    private static final String INCOME_SOURCES_V = "incomesourcesview";
     @FXML
     private TextField field_search;
     @FXML
@@ -24,26 +26,41 @@ public class SourcesIncomeController {
     @FXML
     private TableColumn<SourcesIncome, String> column1;//  String name;
     @FXML
-    private TableColumn<SourcesIncome, String> column2;//  int income_category_id;
+    private TableColumn<SourcesIncome, Integer> column2;//  int income_category_id;
+    @FXML
+    private TableColumn<SourcesIncome, String> column2_1;// String category_name;
+    @FXML
+    private TableColumn<SourcesIncome, String> column2_2;//  String subcategory_name;
     @FXML
     private TableColumn<SourcesIncome, String> column3;//  String description;
+    private String NAME_TABLE;
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene("scenes/tables-window.fxml");
+        ControlStages.changeScene(URLs.URL_TABLES);
     }
+
     @FXML
-    protected void initialize(){
-        column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+    protected void initialize() {
+        if (ControlStages.getSceneURL().equals(URLs.URL_INCOME_SOURCES_T)) {
+            NAME_TABLE = INCOME_SOURCES;
+            column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+            column2.setCellValueFactory(new PropertyValueFactory<>("income_category_id"));
+        } else { // TODO не присваивает значения в таблице, так как не объявлены переменные category_name и subcategory_name
+            NAME_TABLE = INCOME_SOURCES_V;
+            column2_1.setCellValueFactory(new PropertyValueFactory<>("category_name"));
+            column2_2.setCellValueFactory(new PropertyValueFactory<>("subcategory_name"));
+        }
         column1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("income_category_id"));
         column3.setCellValueFactory(new PropertyValueFactory<>("description"));
         initData();
     }
+
     @FXML
     protected void onRefreshButtonClick() {
         initData();
     }
+
     @FXML
     protected void onMouseClicked() {
         General.setSelectedObject(getSelectItem());
@@ -55,15 +72,19 @@ public class SourcesIncomeController {
     }
 
     private SourcesIncome getSelectItem() {
+
         return tableView.getSelectionModel().getSelectedItem();
     }
 
     private void searchOnField() {
-        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, INCOME_SOURCES, SourcesIncome.class));
+        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, NAME_TABLE, SourcesIncome.class));
     }
+
     private void initData() {
-        CommandsSQL.fillTable(tableView, INCOME_SOURCES, SourcesIncome.class);
+        CommandsSQL.fillTable(tableView, NAME_TABLE, SourcesIncome.class);
+//        CommandsSQL.testOutput(tableView,"SELECT * FROM incomesourcesview ORDER BY id", new SourcesIncome(-1, "", "", "", ""));
     }
+
     @FXML
     protected void clickOpenAdditionWin() {
         interactionAddition();
@@ -87,11 +108,19 @@ public class SourcesIncomeController {
                 new SourcesIncome(-1, "", -1, ""));
         if (item != null) {
             if (!item.getName().trim().isEmpty()
-                    && CommandsSQL.checkID(item.getIncome_category_id(),"income_categories")) {
-                CommandsSQL.insertDataIntoTable(INCOME_SOURCES, new SourcesIncome(CommandsSQL.getFreeID(INCOME_SOURCES),
-                        item.getName(),
-                        item.getIncome_category_id(),
-                        item.getDescription()));
+                    && CommandsSQL.checkID(item.getIncome_category_id(), "income_categories")) {
+
+                CommandsSQL.executeUpdateQuery("INSERT INTO " + INCOME_SOURCES + " (id, name, income_category_id, description) VALUES (?, ?, ?, ?)",
+                        new Object[]{
+                                CommandsSQL.getFreeID(INCOME_SOURCES),
+                                item.getName(),
+                                item.getIncome_category_id(),
+                                item.getDescription()
+                        });
+//                CommandsSQL.insertDataIntoTable(INCOME_SOURCES, new SourcesIncome(CommandsSQL.getFreeID(INCOME_SOURCES),
+//                        item.getName(),
+//                        item.getIncome_category_id(),
+//                        item.getDescription()));
                 initData();
                 General.successfully("добавлено");
             } else General.ErrorWindow("Не выполнено условие ввода!");
@@ -107,7 +136,7 @@ public class SourcesIncomeController {
                     getSelectItem());
             if (item != null) {
                 if (!item.getName().trim().isEmpty()
-                        && CommandsSQL.checkID(item.getIncome_category_id(),"income_categories")
+                        && CommandsSQL.checkID(item.getIncome_category_id(), "income_categories")
                         && !item.getDescription().trim().isEmpty()) {
                     CommandsSQL.updateDataInTable(INCOME_SOURCES, item, "id = " + item.getId());
                     initData();
@@ -122,12 +151,21 @@ public class SourcesIncomeController {
             SourcesIncome item = getSelectItem();
             if (General.getConfirmation("Удалить подкатегорию дохода?" +
                     "\nНаименование: " + item.getName() +
-                    "\nID категории дохода: " + item.getIncome_category_id()+
+                    "\nID категории дохода: " + item.getIncome_category_id() +
                     "\nОписание: " + item.getDescription())) {
                 CommandsSQL.deleteDataFromTable(INCOME_SOURCES, "id = " + item.getId() + ";");
                 initData();
                 General.successfully("удалено");
             }
         } else General.ErrorWindow("Не была выбрана строка для удаления!");
+    }
+    @FXML
+    protected void gotoTable() throws IOException {
+        ControlStages.changeScene(URLs.URL_INCOME_SOURCES_T);
+    }
+
+    @FXML
+    protected void gotoView() throws IOException {
+        ControlStages.changeScene(URLs.URL_INCOME_SOURCES_V);
     }
 }

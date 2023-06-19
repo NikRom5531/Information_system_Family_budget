@@ -4,6 +4,7 @@ package com.example.kursproject.controllers.main;
 import com.example.kursproject.CommandsSQL;
 import com.example.kursproject.ControlStages;
 import com.example.kursproject.General;
+import com.example.kursproject.URLs;
 import com.example.kursproject.classesTable.SubcategoriesIncome;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -16,6 +17,7 @@ import java.util.Collections;
 
 public class SubcategoriesIncomeController {
     private static final String INCOME_SUBCATEGORIES = "income_subcategories";
+    private static final String INCOME_SUBCATEGORIES_V = "incomesubcategoriesview";
     @FXML
     public TextField field_search;
     @FXML
@@ -24,14 +26,18 @@ public class SubcategoriesIncomeController {
     public TableColumn<SubcategoriesIncome, Integer> column0;
     @FXML
     public TableColumn<SubcategoriesIncome, String> column1;
+    private String NAME_TABLE;
 
     private void initData() {
-        CommandsSQL.fillTable(tableView, INCOME_SUBCATEGORIES, SubcategoriesIncome.class);
+        CommandsSQL.fillTable(tableView, NAME_TABLE, SubcategoriesIncome.class);
     }
 
     @FXML
     protected void initialize() {
-        column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+        if (ControlStages.getSceneURL().equals(URLs.URL_INCOME_SUBCATEGORIES_T)) {
+            column0.setCellValueFactory(new PropertyValueFactory<>("id"));
+            NAME_TABLE = INCOME_SUBCATEGORIES;
+        } else NAME_TABLE = INCOME_SUBCATEGORIES_V;
         column1.setCellValueFactory(new PropertyValueFactory<>("name"));
         initData();
     }
@@ -43,7 +49,7 @@ public class SubcategoriesIncomeController {
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene("scenes/tables-window.fxml");
+        ControlStages.changeScene(URLs.URL_TABLES);
     }
 
     @FXML
@@ -61,7 +67,7 @@ public class SubcategoriesIncomeController {
     }
 
     private void searchOnField() {
-        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, INCOME_SUBCATEGORIES, SubcategoriesIncome.class));
+        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, NAME_TABLE, SubcategoriesIncome.class));
     }
 
     @FXML
@@ -120,5 +126,15 @@ public class SubcategoriesIncomeController {
                 General.successfully("удалено");
             }
         } else General.ErrorWindow("Не была выбрана строка для удаления!");
+    }
+
+    @FXML
+    protected void gotoTable() throws IOException {
+        ControlStages.changeScene(URLs.URL_INCOME_SUBCATEGORIES_T);
+    }
+
+    @FXML
+    protected void gotoView() throws IOException {
+        ControlStages.changeScene(URLs.URL_INCOME_SUBCATEGORIES_V);
     }
 }
