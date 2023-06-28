@@ -25,7 +25,6 @@ public class ReportGenerator<T> {
         List<T> Data = CommandsSQL.readDataFromTable(nameTable, tClass);//new ArrayList<>();
         // Заполнение данных таблицы FamilyMembersView
         ReportGenerator<T> reportGenerator = new ReportGenerator<>(Data);
-        reportGenerator.generateReport(nameReport, "report_" + nameTable + ".doc", columnNames, onlyColumns, parametrs); // Создание отчета в формате doc
         reportGenerator.generateReport(nameReport, "report_" + nameTable + ".html", columnNames, onlyColumns, parametrs); // Создание отчета в формате HTML
     }
 
@@ -48,24 +47,11 @@ public class ReportGenerator<T> {
     }
 
     public void generateReport(String nameReport, String filePath, Map<String, String> columnNames, List<String> onlyColumns, String parametrs) {
-        if (filePath.endsWith(".doc") || filePath.endsWith(".docx")) {
-            generateWordDocument(filePath);
-        } else if (filePath.endsWith(".html")) {
+        if (filePath.endsWith(".html")) {
             generateHtmlReport(nameReport, filePath, columnNames, onlyColumns, parametrs);
         } else {
             throw new IllegalArgumentException("Неверный формат файла.");
         }
-    }
-
-    private void generateWordDocument(String filePath) {
-        // Generate the Word document report based on the data
-        // Example code using a library like Apache POI:
-        // XWPFDocument document = new XWPFDocument();
-        // XWPFTable table = document.createTable(data.size(), T.class.getDeclaredFields().length);
-        // ... populate the table with data ...
-        // FileOutputStream outputStream = new FileOutputStream(filePath);
-        // document.write(outputStream);
-        // outputStream.close();
     }
 
     private void generateHtmlReport(String nameReport, String filePath, Map<String, String> columnNames, List<String> onlyColumns, String parametrs) {

@@ -1,7 +1,6 @@
 package com.example.kursproject;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -39,10 +38,6 @@ public class ControlStages {
     }
     //////////////////////////////////////////////////
     private static Stage secondStage;
-
-    public static Stage getSecondStage() {
-        return secondStage;
-    }
 
     public static void setSecondStage(Stage stage){
         secondStage = stage;
