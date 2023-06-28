@@ -15,10 +15,10 @@ public class ControlStages {
     public static Stage getStage(){
         return stage;
     }
-    public ControlStages(Stage stage) {
-        setAppIcon(stage);
-        stage.setResizable(false);
-        this.stage = stage;
+    public ControlStages(Stage sTage) {
+        setAppIcon(sTage);
+        sTage.setResizable(false);
+        stage = sTage;
     }
 
     public ControlStages() {
