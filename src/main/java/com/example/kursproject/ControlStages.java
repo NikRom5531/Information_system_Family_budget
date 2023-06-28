@@ -28,8 +28,6 @@ public class ControlStages {
         filePathURL = nameScene; System.out.println(filePathURL);
         Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource(nameScene)));
         Scene scene = new Scene(root);
-//        scene.getProperties().put("URL", nameScene);
-        setCursor(scene);
         stage.setScene(scene);
         stage.show();
     }
@@ -38,18 +36,6 @@ public class ControlStages {
     }
     public static String getSceneURL(){
         return filePathURL;
-    }
-    public static void setCursor(Scene scene) {
-        String nameFileCursor = "";
-//        int sw = -1;
-//        switch (sw){
-//            case 0 -> nameFileCursor = "images/cursor.png";
-//            default -> {}
-//        }
-        if (!nameFileCursor.equals("")) {
-            Image image = new Image(Objects.requireNonNull(Application.class.getResourceAsStream(nameFileCursor)));
-            scene.setCursor(new ImageCursor(image));
-        }
     }
     //////////////////////////////////////////////////
     private static Stage secondStage;

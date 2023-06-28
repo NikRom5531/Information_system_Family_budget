@@ -1,10 +1,7 @@
 package com.example.kursproject.controllers.main;
 
-import com.example.kursproject.CommandsSQL;
-import com.example.kursproject.ControlStages;
-import com.example.kursproject.URLs;
+import com.example.kursproject.*;
 import com.example.kursproject.classesTable.FamilyMembers;
-import com.example.kursproject.General;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,10 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FamilyMembersController {
     private static final String FAMILY_MEMBERS = "family_members";
     private static final String FAMILY_MEMBERS_V = "familymembersview";
+    private final List<String> fieldsTable = List.of("id", "first_name", "last_name", "additional_info");
+    private final List<String> stringList = List.of("Имя", "Фамилия", "Дополнительная информация");
     @FXML
     private TableView<FamilyMembers> tableView;
     @FXML
@@ -64,15 +66,16 @@ public class FamilyMembersController {
             FamilyMembers item = getSelectItem();
             String condition = "";
             if (!item.getAdditional_info().trim().isEmpty())
-                condition = "\nДоп.информация: " + item.getAdditional_info();
+                condition = "\n" + stringList.get(2) + ": " + item.getAdditional_info();
             if (General.getConfirmation("Удалить члена семьи?" +
-                    "\nИмя: " + item.getFirst_name() + "\nФамилия: " + item.getLast_name() + condition)) {
-                CommandsSQL.deleteDataFromTable(FAMILY_MEMBERS, "id = " + item.getId() +
+                    "\n" + stringList.get(0) + ": " + item.getFirst_name() + "\n" + stringList.get(1) + ": " + item.getLast_name() + condition)) {
+                if (CommandsSQL.deleteDataFromTable(FAMILY_MEMBERS, "id = " + item.getId() +
                         " AND first_name = '" + item.getFirst_name() + "'" +
                         " AND last_name = '" + item.getLast_name() + "'" +
-                        " AND additional_info = '" + item.getAdditional_info() + "';");
-                initData();
-                General.successfully("удалено");
+                        " AND additional_info = '" + item.getAdditional_info() + "';")) {
+                    searchOnField();
+                    General.successfully("удалено");
+                }
             }
         } else General.ErrorWindow("Не была выбрана строка для удаления!");
     }
@@ -93,7 +96,8 @@ public class FamilyMembersController {
     }
 
     private void searchOnField() {
-        tableView.setItems(General.filterTableData(field_search.getText().trim(), tableView, NAME_TABLE, FamilyMembers.class));
+        initData();
+        tableView.setItems(General.filterTableData(tableView.getItems(), field_search.getText().trim(), tableView));
     }
 
     @FXML
@@ -102,7 +106,8 @@ public class FamilyMembersController {
     }
 
     private FamilyMembers getSelectItem() {
-        return tableView.getSelectionModel().getSelectedItem();
+        if (tableView.getSelectionModel().getSelectedItem() == null) return null;
+        return CommandsSQL.retrieveObjectById(FAMILY_MEMBERS, tableView.getSelectionModel().getSelectedItem().getId(), FamilyMembers.class);
     }
 
     @FXML
@@ -113,5 +118,22 @@ public class FamilyMembersController {
     @FXML
     protected void gotoView() throws IOException {
         ControlStages.changeScene(URLs.URL_FAMILY_MEMBER_V);
+    }
+
+    @FXML
+    protected void createReport() {
+        // Создание Map для хранения соответствий исходных и желаемых наименований столбцов
+        Map<String, String> columnNames = new HashMap<>();
+        columnNames.put("id", "ID");
+        String parametrs = "";
+        for (int i = 1; i < fieldsTable.size(); i++) columnNames.put(fieldsTable.get(i), stringList.get(i - 1));
+        if (!field_search.getText().trim().isEmpty()) parametrs += "'" + field_search.getText().trim() + "'";
+        ReportGenerator.selectPath("Члены семьи", tableView.getItems(), columnNames, fieldsTable, parametrs);
+    }
+
+    @FXML
+    protected void clearAllFields() {
+        field_search.clear();
+        searchOnField();
     }
 }

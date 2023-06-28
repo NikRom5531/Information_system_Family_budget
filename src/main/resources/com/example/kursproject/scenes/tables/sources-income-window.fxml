@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.SourcesIncomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.SourcesIncomeController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../images/income.jpg" />
     </ImageView>
@@ -17,9 +17,9 @@
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
         <columns>
             <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID" />
-            <TableColumn fx:id="column1" editable="false" prefWidth="422.0" resizable="false" sortable="false" text="Наименование" />
-            <TableColumn fx:id="column2" editable="false" prefWidth="130.0" resizable="false" sortable="false" text="ID категории дохода" />
-            <TableColumn fx:id="column3" editable="false" prefWidth="267.0" resizable="false" sortable="false" text="Описание" />
+            <TableColumn fx:id="column1" editable="false" prefWidth="258.0" resizable="false" sortable="false" text="Наименование" />
+            <TableColumn fx:id="column2" editable="false" prefWidth="127.0" resizable="false" sortable="false" text="ID категории дохода" />
+            <TableColumn fx:id="column3" editable="false" prefWidth="434.0" resizable="false" sortable="false" text="Описание" />
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -35,5 +35,8 @@
             <Font name="Arial Bold" size="14.0" />
         </font>
     </TextField>
-    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" text="Включить режим просмотра"/>
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" prefWidth="175.0" text="Включить режим просмотра" />
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
+    <ComboBox fx:id="choice_category" layoutX="14.0" layoutY="384.0" onAction="#choiceCategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите ID категории дохода..." />
 </AnchorPane>

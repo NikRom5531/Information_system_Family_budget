@@ -16,10 +16,10 @@
     </Label>
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column1" editable="false" prefWidth="338.0" resizable="false" sortable="false" text="Наименование" />
-            <TableColumn fx:id="column2_1" editable="false" prefWidth="114.0" resizable="false" sortable="false" text="Категория дохода" />
-            <TableColumn fx:id="column2_2" editable="false" prefWidth="136.0" resizable="false" sortable="false" text="Подкатегория дохода" />
-            <TableColumn fx:id="column3" editable="false" prefWidth="266.0" resizable="false" sortable="false" text="Описание" />
+            <TableColumn fx:id="column1" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="Наименование" />
+            <TableColumn fx:id="column2_1" editable="false" prefWidth="160.0" resizable="false" sortable="false" text="Категория дохода" />
+            <TableColumn fx:id="column2_2" editable="false" prefWidth="170.0" resizable="false" sortable="false" text="Подкатегория дохода" />
+            <TableColumn fx:id="column3" editable="false" prefWidth="297.0" resizable="false" sortable="false" text="Описание" />
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -35,5 +35,9 @@
             <Font name="Arial Bold" size="14.0" />
         </font>
     </TextField>
-    <Button layoutX="597.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoTable" text="Включить режим таблиц" />
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoTable" prefWidth="175.0" text="Включить режим таблиц" />
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
+    <ComboBox fx:id="choice_subcategory" layoutX="14.0" layoutY="422.0" onAction="#choiceSubcategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите подкатегорию дохода..." />
+    <ComboBox fx:id="choice_category" layoutX="14.0" layoutY="384.0" onAction="#choiceCategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите категорию дохода..." />
 </AnchorPane>

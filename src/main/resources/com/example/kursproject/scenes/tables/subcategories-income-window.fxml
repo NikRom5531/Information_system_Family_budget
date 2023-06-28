@@ -49,5 +49,7 @@
             <Font name="Arial Bold" size="14.0"/>
         </font>
     </TextField>
-    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" text="Включить режим просмотра"/>
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" prefWidth="175.0" text="Включить режим просмотра"/>
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
 </AnchorPane>

@@ -9,8 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.List;
+
 public class InteractionAddFamilyMembersController {
     private static final String FAMILY_MEMBERS = "family_members";
+    private final List<String> fieldsTable = List.of("id", "first_name", "last_name", "additional_info");
     public Button button_cancel;
     @FXML
     private TextField field_first_name;
@@ -40,9 +43,10 @@ public class InteractionAddFamilyMembersController {
                     last_name = field_last_name.getText().trim(),
                     addition_info = field_additional_info.getText().trim();
             FamilyMembers familyMember = new FamilyMembers(CommandsSQL.getFreeID(FAMILY_MEMBERS), first_name, last_name, addition_info);
-            CommandsSQL.insertDataIntoTable(FAMILY_MEMBERS, familyMember);
-            clearAll();
-            General.successfully("сохранено");
+            if (CommandsSQL.insertDataIntoTable(FAMILY_MEMBERS, familyMember, fieldsTable)) {
+                clearAll();
+                General.successfully("сохранено");
+            }
         }
     }
 

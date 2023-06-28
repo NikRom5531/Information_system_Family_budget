@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.ExpensesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.ExpensesController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../images/income.jpg" />
     </ImageView>
@@ -39,4 +39,14 @@
             <Font name="Arial Bold" size="14.0" />
         </font>
     </TextField>
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" prefWidth="175.0" text="Включить режим просмотра" />
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
+    <DatePicker fx:id="choice_date_from" layoutX="14.0" layoutY="384.0" onAction="#choiceDateFrom" prefHeight="30.0" prefWidth="115.0" promptText="Дата: От" />
+    <DatePicker fx:id="choice_date_to" layoutX="139.0" layoutY="384.0" onAction="#choiceDateTo" prefHeight="30.0" prefWidth="115.0" promptText="Дата: До" />
+    <TextField fx:id="choice_amount_from" layoutX="260.0" layoutY="384.0" onKeyReleased="#choiceAmountFrom" prefHeight="30.0" prefWidth="115.0" promptText="Сумма: От" />
+    <TextField fx:id="choice_amount_to" layoutX="260.0" layoutY="422.0" onKeyReleased="#choiceAmountTo" prefHeight="30.0" prefWidth="115.0" promptText="Сумма: До" />
+    <ComboBox fx:id="choice_family_member" layoutX="14.0" layoutY="422.0" onAction="#choiceFamilyMember" prefHeight="30.0" prefWidth="240.0" promptText="Выберите ID члена семьи" />
+    <ComboBox fx:id="choice_expense_category" layoutX="14.0" layoutY="461.0" onAction="#choiceExpenseCategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите ID категории расхода" />
+    <ComboBox fx:id="choice_status" layoutX="260.0" layoutY="461.0" onAction="#choiceStatus" prefHeight="30.0" prefWidth="115.0" promptText="Статус" />
 </AnchorPane>

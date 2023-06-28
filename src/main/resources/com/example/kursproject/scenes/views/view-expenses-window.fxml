@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.kursproject.controllers.main.ExpensesController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../images/income.jpg"/>
@@ -19,20 +19,21 @@
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97"
                prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID"/>
             <TableColumn fx:id="column1" editable="false" prefWidth="66.0" resizable="false" sortable="false"
                          text="Дата"/>
-            <TableColumn fx:id="column2" editable="false" prefWidth="96.0" resizable="false" sortable="false"
-                         text="ID члена семьи"/>
-            <TableColumn fx:id="column3" editable="false" minWidth="0.0" prefWidth="132.0" resizable="false"
-                         sortable="false" text="ID категории расхода"/>
-            <TableColumn fx:id="column4" editable="false" prefWidth="82.0" resizable="false" sortable="false"
+            <TableColumn fx:id="column2_1" editable="false" prefWidth="96.0" resizable="false" sortable="false"
+                         text="Имя"/>
+            <TableColumn fx:id="column2_2" editable="false" prefWidth="96.0" resizable="false" sortable="false"
+                         text="Фамилия"/>
+            <TableColumn fx:id="column3_1" editable="false" minWidth="0.0" prefWidth="143.0" resizable="false"
+                         sortable="false" text="Категория расхода"/>
+            <TableColumn fx:id="column4" editable="false" prefWidth="78.0" resizable="false" sortable="false"
                          text="Сумма"/>
-            <TableColumn fx:id="column5" editable="false" prefWidth="245.0" resizable="false" sortable="false"
+            <TableColumn fx:id="column5" editable="false" prefWidth="185.0" resizable="false" sortable="false"
                          text="Описание"/>
-            <TableColumn fx:id="column6" editable="false" minWidth="0.0" prefWidth="79.0" resizable="false"
+            <TableColumn fx:id="column6" editable="false" minWidth="0.0" prefWidth="50.0" resizable="false"
                          sortable="false" text="Статус"/>
-            <TableColumn fx:id="column7" editable="false" minWidth="0.0" prefWidth="119.0" resizable="false"
+            <TableColumn fx:id="column7" editable="false" minWidth="0.0" prefWidth="143.0" resizable="false"
                          sortable="false" text="Комментарий"/>
         </columns>
         <columnResizePolicy>
@@ -55,4 +56,24 @@
             <Font name="Arial Bold" size="14.0"/>
         </font>
     </TextField>
+    <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoTable" prefWidth="175.0"
+            text="Включить режим таблиц"/>
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0"
+            prefWidth="146.0" text="Составить отчёт"/>
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0"
+            prefWidth="146.0" text="Очистить поля"/>
+    <DatePicker fx:id="choice_date_from" layoutX="14.0" layoutY="384.0" onAction="#choiceDateFrom" prefHeight="30.0"
+                prefWidth="115.0" promptText="Дата: От"/>
+    <DatePicker fx:id="choice_date_to" layoutX="139.0" layoutY="384.0" onAction="#choiceDateTo" prefHeight="30.0"
+                prefWidth="115.0" promptText="Дата: До"/>
+    <TextField fx:id="choice_amount_from" layoutX="260.0" layoutY="384.0" onKeyReleased="#choiceAmountFrom"
+               prefHeight="30.0" prefWidth="115.0" promptText="Сумма: От"/>
+    <TextField fx:id="choice_amount_to" layoutX="260.0" layoutY="422.0" onKeyReleased="#choiceAmountTo"
+               prefHeight="30.0" prefWidth="115.0" promptText="Сумма: До"/>
+    <ComboBox fx:id="choice_family_member" layoutX="14.0" layoutY="422.0" onAction="#choiceFamilyMember"
+              prefHeight="30.0" prefWidth="240.0" promptText="Выберите члена семьи"/>
+    <ComboBox fx:id="choice_expense_category" layoutX="14.0" layoutY="461.0" onAction="#choiceExpenseCategory"
+              prefHeight="30.0" prefWidth="240.0" promptText="Выберите категорию дохода"/>
+    <ComboBox fx:id="choice_status" layoutX="260.0" layoutY="461.0" onAction="#choiceStatus" prefHeight="30.0"
+              prefWidth="115.0" promptText="Статус"/>
 </AnchorPane>

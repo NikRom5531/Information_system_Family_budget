@@ -2,9 +2,7 @@ package com.example.kursproject;
 
 public class URLs {
     public static final String URL_MAIN = "scenes/main-window.fxml";
-    /////
     public static final String URL_TABLES = "scenes/tables-window.fxml";
-    public static final String URL_VIEWS = "scenes/views-window.fxml";
     /////
     public static final String URL_INCOME_T = "scenes/tables/income-window.fxml";
     public static final String URL_EXPENSES_T = "scenes/tables/expenses-window.fxml";

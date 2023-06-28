@@ -20,6 +20,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class General {
     public static Object selectedObject;
 
+    public enum Mode {
+        TABLE,
+        VIEW
+    }
+
     public static <T> void setSelectedObject(T t) {
         selectedObject = t;
     }
@@ -36,8 +41,7 @@ public class General {
         else if (component instanceof TextArea) ((TextArea) component).setStyle(style);
     }
 
-    public static <T> ObservableList<T> filterTableData(String searchText, TableView<T> tableView, String nameTable, Class<T> tClass) {
-        ObservableList<T> data = CommandsSQL.readDataFromTable(nameTable, tClass);
+    public static <T> ObservableList<T> filterTableData(ObservableList<T> data, String searchText, TableView<T> tableView) {
         if (searchText == null || searchText.isEmpty()) return data;
         String lowerSearchText = searchText.toLowerCase();
         ObservableList<T> filteredData = FXCollections.observableArrayList();
@@ -87,7 +91,7 @@ public class General {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        List<Object> list = new ArrayList<>();
+        List<Object> list_T = new ArrayList<>();
         Field[] fields = instance.getClass().getDeclaredFields();
         for (int i = 0; i < labels.size(); i++) {
             grid.add(new Label(labels.get(i)), 0, i);
@@ -97,39 +101,43 @@ public class General {
             switch (type) {
                 case "boolean" -> { // TODO надо проверить ComboBox!!
                     ComboBox<String> comboBox = new ComboBox<>();
-                    comboBox.setItems(FXCollections.observableArrayList("Выберите...", "Истина", "Ложь")); //
+                    comboBox.setItems(FXCollections.observableArrayList("Истина", "Ложь")); //
+                    comboBox.setPromptText("Выберите...");
                     try {
                         if (field.get(instance) != null) {
                             boolean bool = (boolean) field.get(instance);
                             if (bool) comboBox.getSelectionModel().select("Истина");
                             else comboBox.getSelectionModel().select("Ложь");
-                        } else comboBox.getSelectionModel().select("Выберите...");
+                        }
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
-                    list.add(comboBox);
+                    list_T.add(comboBox);
                 }
                 case "java.util.Date" -> { // TODO надо проверить DatePicker!!
                     DatePicker datePicker = new DatePicker();
+                    datePicker.setPromptText("Выберите дату");
                     try {
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         datePicker.setValue(LocalDate.parse(format.format((Date) field.get(instance))));
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
-                    list.add(new DatePicker(datePicker.getValue()));
+                    list_T.add(new DatePicker(datePicker.getValue()));
                 }
-                default -> { // TODO надо проверить TextField!!
+                default -> {
                     TextField textField;
                     try {
-                        textField = new TextField(field.get(instance).toString());
+                        if (field.get(instance) != null) textField = new TextField(field.get(instance).toString());
+                        else textField = new TextField();
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
-                    list.add(textField);
+                    list_T.add(textField);
+//                    }
                 }
             }
-            grid.add((Node) list.get(i), 1, i);
+            grid.add((Node) list_T.get(i), 1, i);
         }
         dialog.getDialogPane().setContent(grid);// Установка обработчика для кнопки "OK"
         dialog.setResultConverter(dialogButton -> {
@@ -139,32 +147,36 @@ public class General {
                     for (int i = 0; i < labels.size(); i++) {
                         Field field = fields[i + 1];
                         field.setAccessible(true);
-                        if (condition.get(i) && list.get(i) == null) return null; // Возвращаем null, чтобы показать, что данные не прошли валидацию
+                        if (condition.get(i) && list_T.get(i) == null)
+                            return null; // Возвращаем null, чтобы показать, что данные не прошли валидацию
                         String type = field.getType().getTypeName();
                         switch (type) {
                             case "java.lang.String", "int", "double" -> {
                                 String value = null;
-                                if (list.get(i) instanceof TextField) value = ((TextField) list.get(i)).getText().trim();
+                                if (list_T.get(i) instanceof TextField)
+                                    value = ((TextField) list_T.get(i)).getText().trim();
                                 if (value != null) {
                                     if (condition.get(i) && value.isEmpty()) return null;
                                     switch (type) {
                                         case "java.lang.String" -> field.set(instance, value); // String
                                         case "int" -> field.set(instance, Integer.parseInt(value)); // Integer
                                         case "double" -> field.set(instance, Double.parseDouble(value)); // Double
-                                        default -> {}
+                                        default -> {
+                                        }
                                     }
                                 }
                             }
                             case "boolean" -> { // boolean
-                                if (list.get(i) instanceof ComboBox) {
-                                    if (((ComboBox<?>) list.get(i)).getSelectionModel().isSelected(1)) field.set(instance, true);
+                                if (list_T.get(i) instanceof ComboBox) {
+                                    if (((ComboBox<?>) list_T.get(i)).getSelectionModel().isSelected(0))
+                                        field.set(instance, true);
                                     else field.set(instance, false);
                                 }
                             }
                             case "java.util.Date" -> { // Date
-                                if (list.get(i) instanceof DatePicker) {
+                                if (list_T.get(i) instanceof DatePicker) {
                                     try { // Используйте соответствующий метод для преобразования строки в Date
-                                        LocalDate localDate = ((DatePicker) list.get(i)).getValue();
+                                        LocalDate localDate = ((DatePicker) list_T.get(i)).getValue();
                                         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
                                         field.set(instance, Date.from(instant));
                                     } catch (Exception e) { // Обработка ошибки при преобразовании строки в Date
@@ -196,7 +208,7 @@ public class General {
         alert.showAndWait();
     }
 
-    private static <T> void setIconWindow(T iconWindow) {
+    public static <T> void setIconWindow(T iconWindow) {
         Stage stage = null;
         if (iconWindow instanceof Alert) stage = (Stage) ((Alert) iconWindow).getDialogPane().getScene().getWindow();
         else if (iconWindow instanceof Dialog)
@@ -204,5 +216,4 @@ public class General {
         if (stage != null)
             stage.getIcons().add(new Image(Objects.requireNonNull(General.class.getResourceAsStream("images/AppIcon.png"))));
     }
-
 }
