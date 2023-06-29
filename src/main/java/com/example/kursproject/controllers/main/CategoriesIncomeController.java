@@ -199,12 +199,12 @@ public class CategoriesIncomeController {
         switch (mode) {
             case TABLE -> {
                 if (choice_subcategory.getSelectionModel().getSelectedIndex() > 0)
-                    tableView.setItems(CommandsSQL.filterData(INCOME_CATEGORIES, "subcategory_id = " + choice_subcategory.getSelectionModel().getSelectedItem(), CategoriesIncome.class));
+                    tableView.setItems(CommandsSQL.filterData(INCOME_CATEGORIES, "subcategory_id = " + choice_subcategory.getSelectionModel().getSelectedItem() + " ORDER BY id", CategoriesIncome.class));
                 else initData();
             }
             case VIEW -> {
                 if (choice_subcategory.getSelectionModel().getSelectedIndex() > 0)
-                    tableView.setItems(CommandsSQL.filterData(INCOME_CATEGORIES_V, "subcategory_name = '" + choice_subcategory.getSelectionModel().getSelectedItem() + "'", CategoriesIncome.class));
+                    tableView.setItems(CommandsSQL.filterData(INCOME_CATEGORIES_V, "subcategory_name = '" + choice_subcategory.getSelectionModel().getSelectedItem() + "'" + " ORDER BY id", CategoriesIncome.class));
                 else initData();
             }
         }

@@ -219,7 +219,7 @@ public class SourcesIncomeController {
     private void searchOnField() {
         switch (mode) {
             case TABLE -> {
-                if (choice_category.getSelectionModel().getSelectedIndex() > 0) tableView.setItems(CommandsSQL.filterData(INCOME_SOURCES, "income_category_id = " + choice_category.getSelectionModel().getSelectedItem(), SourcesIncome.class));
+                if (choice_category.getSelectionModel().getSelectedIndex() > 0) tableView.setItems(CommandsSQL.filterData(INCOME_SOURCES, "income_category_id = " + choice_category.getSelectionModel().getSelectedItem() + " ORDER BY id", SourcesIncome.class));
                 else initData();
             }
             case VIEW -> {
@@ -228,7 +228,7 @@ public class SourcesIncomeController {
                     if (choice_category.getSelectionModel().getSelectedIndex() > 0) sqlQuery.append("category_name = '").append(choice_category.getSelectionModel().getSelectedItem()).append("'");
                     if (choice_category.getSelectionModel().getSelectedIndex() > 0 && choice_subcategory.getSelectionModel().getSelectedIndex() > 0) sqlQuery.append(" AND ");
                     if (choice_subcategory.getSelectionModel().getSelectedIndex() > 0) sqlQuery.append("subcategory_name = '").append(choice_subcategory.getSelectionModel().getSelectedItem()).append("'");
-                    tableView.setItems(CommandsSQL.filterData(INCOME_SOURCES_V, sqlQuery.toString(), SourcesIncome.class));
+                    tableView.setItems(CommandsSQL.filterData(INCOME_SOURCES_V, sqlQuery + " ORDER BY id", SourcesIncome.class));
                 } else initData();
             }
         }

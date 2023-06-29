@@ -24,7 +24,7 @@ public class ControlStages {
     public ControlStages() {
     }
     public static void changeScene(String nameScene) throws IOException {
-        filePathURL = nameScene; System.out.println(filePathURL);
+        filePathURL = nameScene; //System.out.println(filePathURL);
         Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource(nameScene)));
         Scene scene = new Scene(root);
         stage.setScene(scene);

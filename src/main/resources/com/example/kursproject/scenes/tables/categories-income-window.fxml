@@ -5,51 +5,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.kursproject.controllers.main.CategoriesIncomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.main.CategoriesIncomeController">
     <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../../images/income.jpg"/>
+        <Image url="@../../images/income.jpg" />
     </ImageView>
     <Label layoutX="23.0" layoutY="6.0" text="Категории доходов" textFill="WHITE">
         <font>
-            <Font name="System Bold" size="20.0"/>
+            <Font name="System Bold" size="20.0" />
         </font>
     </Label>
-    <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97"
-               prefHeight="329.0" prefWidth="872.0">
+    <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID"/>
-            <TableColumn fx:id="column1" editable="false" prefWidth="665.0" resizable="false" sortable="false"
-                         text="Наименование"/>
-            <TableColumn fx:id="column2" editable="false" prefWidth="154.0" resizable="false" sortable="false"
-                         text="ID подкатегории дохода"/>
+            <TableColumn fx:id="column0" editable="false" prefWidth="38.0" resizable="false" text="ID" />
+            <TableColumn fx:id="column1" editable="false" prefWidth="665.0" resizable="false" sortable="false" text="Наименование" />
+            <TableColumn fx:id="column2" editable="false" prefWidth="154.0" resizable="false" sortable="false" text="ID подкатегории дохода" />
         </columns>
         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TableView>
-    <Button layoutX="837.0" layoutY="10.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Назад"
-            textAlignment="CENTER"/>
-    <Button layoutX="586.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenAdditionWin" prefHeight="30.0"
-            prefWidth="95.0" text="Добавить"/>
-    <Button layoutX="791.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenDeleteWin" prefHeight="30.0"
-            prefWidth="95.0" text="Удалить"/>
-    <Button layoutX="689.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenEditWin" prefHeight="30.0"
-            prefWidth="95.0" text="Изменить"/>
-    <Button layoutX="758.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRefreshButtonClick" text="Обновить"/>
-    <TextField fx:id="field_search" alignment="CENTER" layoutX="586.0" layoutY="384.0"
-               onKeyReleased="#onInputMethodTextChanged" prefHeight="30.0" prefWidth="300.0"
-               promptText="Поиск по таблице">
+    <Button layoutX="837.0" layoutY="10.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Назад" textAlignment="CENTER" />
+    <Button layoutX="586.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenAdditionWin" prefHeight="30.0" prefWidth="95.0" text="Добавить" />
+    <Button layoutX="791.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenDeleteWin" prefHeight="30.0" prefWidth="95.0" text="Удалить" />
+    <Button layoutX="689.0" layoutY="422.0" mnemonicParsing="false" onAction="#clickOpenEditWin" prefHeight="30.0" prefWidth="95.0" text="Изменить" />
+    <Button layoutX="758.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRefreshButtonClick" text="Обновить" />
+    <TextField fx:id="field_search" alignment="CENTER" layoutX="586.0" layoutY="384.0" onKeyReleased="#onInputMethodTextChanged" prefHeight="30.0" prefWidth="300.0" promptText="Поиск по таблице">
         <font>
-            <Font name="Arial Bold" size="14.0"/>
+            <Font name="Arial Bold" size="14.0" />
         </font>
     </TextField>
     <Button layoutX="576.0" layoutY="10.0" mnemonicParsing="false" onAction="#gotoView" prefWidth="175.0" text="Включить режим просмотра" />
-    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0"
-            prefWidth="146.0" text="Составить отчёт"/>
-    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0"
-            prefWidth="146.0" text="Очистить поля"/>
-    <ComboBox fx:id="choice_subcategory" layoutX="14.0" layoutY="384.0" onAction="#choiceSubcategory" prefHeight="30.0"
-              prefWidth="240.0" promptText="Выберите подкатегорию дохода..."/>
+    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />
+    <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
+    <ComboBox fx:id="choice_subcategory" layoutX="14.0" layoutY="384.0" onAction="#choiceSubcategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите подкатегорию дохода..." />
 </AnchorPane>

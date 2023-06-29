@@ -16,7 +16,7 @@
     </Label>
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column0" prefWidth="38.0" resizable="false" sortable="false" text="ID" />
+            <TableColumn fx:id="column0" editable="false" prefWidth="38.0" resizable="false" text="ID" />
             <TableColumn fx:id="column1" editable="false" prefWidth="258.0" resizable="false" sortable="false" text="Наименование" />
             <TableColumn fx:id="column2" editable="false" prefWidth="127.0" resizable="false" sortable="false" text="ID категории дохода" />
             <TableColumn fx:id="column3" editable="false" prefWidth="434.0" resizable="false" sortable="false" text="Описание" />

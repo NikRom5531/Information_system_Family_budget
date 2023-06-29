@@ -15,8 +15,8 @@
         </font>
     </Label>
     <Button cache="true" layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#onOpenWindowTables" prefHeight="25.0" prefWidth="250.0" text="Открыть таблицы" />
-    <Button layoutX="325.0" layoutY="90.0" mnemonicParsing="false" onAction="#onOpenWindowViews" prefHeight="25.0" prefWidth="250.0" text="Открыть просмотр таблиц" visible="false" />
-    <Button layoutX="325.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="пока хз" visible="false" />
+    <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onOpenStatistics" prefHeight="25.0" prefWidth="250.0" text="Открыть статистику" />
+<!--    <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="пока хз" visible="true" />-->
     <Label layoutX="555.0" layoutY="14.0" text="Общее количество средств:" textFill="WHITE">
         <font>
             <Font name="System Bold" size="15.0" />

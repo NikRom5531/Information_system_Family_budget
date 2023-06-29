@@ -421,7 +421,7 @@ public class IncomeController {
                     if (!sqlQuery.toString().equals("")) sqlQuery.append(" AND ");
                     ObservableList<FamilyMembers> familyMembers = CommandsSQL.readDataFromTable("family_members", FamilyMembers.class);
                     ObservableList<String> strFM = FXCollections.observableArrayList();
-                    System.out.println(choice_family_member.getSelectionModel().getSelectedItem());
+//                    System.out.println(choice_family_member.getSelectionModel().getSelectedItem());
                     for (int i = 0; i < familyMembers.size(); i++) {
                         FamilyMembers familyMember = familyMembers.get(i);
                         strFM.add(familyMember.getFirst_name() + " " + familyMember.getLast_name());
@@ -446,7 +446,7 @@ public class IncomeController {
             }
         }
         if (!sqlQuery.toString().trim().isEmpty()){
-            tableView.setItems(CommandsSQL.filterData(NAME_TABLE, sqlQuery.toString(), Income.class));
+            tableView.setItems(CommandsSQL.filterData(NAME_TABLE, sqlQuery + " ORDER BY id", Income.class));
             tableView.setItems(General.filterTableData(tableView.getItems(), field_search.getText().trim(), tableView));
         } else initData();
     }

@@ -42,7 +42,7 @@ public class CommandsSQL {
     public static <T> ObservableList<T> filterData(String tableName, String filterQuery, Class<T> objectType) {
         ObservableList<T> filteredData = FXCollections.observableArrayList();
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String selectQuery = "SELECT * FROM " + tableName + " WHERE " + filterQuery + " ORDER BY id";
+            String selectQuery = "SELECT * FROM " + tableName + " WHERE " + filterQuery;
             try (PreparedStatement statement = connection.prepareStatement(selectQuery);
                  ResultSet resultSet = statement.executeQuery()) {
                 ResultSetMetaData metaData = resultSet.getMetaData();

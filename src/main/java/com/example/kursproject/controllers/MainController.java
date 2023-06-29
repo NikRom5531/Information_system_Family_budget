@@ -23,7 +23,7 @@ public class MainController {
         ControlStages.changeScene(URLs.URL_TABLES);
     }
 
-    public void onOpenWindowViews() throws IOException {
-//        ControlStages.changeScene(URLs.URL_VIEWS);
+    public void onOpenStatistics() throws IOException {
+        ControlStages.changeScene(URLs.URL_STATISTICS);
     }
 }

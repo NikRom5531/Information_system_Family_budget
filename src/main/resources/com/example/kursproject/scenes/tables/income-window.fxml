@@ -16,13 +16,13 @@
     </Label>
     <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" onMouseClicked="#onMouseClicked" opacity="0.97" prefHeight="329.0" prefWidth="872.0">
         <columns>
-            <TableColumn fx:id="column0" editable="false" prefWidth="38.0" resizable="false" sortable="false" text="ID" />
-            <TableColumn fx:id="column1" editable="false" prefWidth="72.0" resizable="false" sortable="false" text="Дата" />
+            <TableColumn fx:id="column0" editable="false" prefWidth="38.0" resizable="false" text="ID" />
+            <TableColumn fx:id="column1" editable="false" prefWidth="72.0" resizable="false" text="Дата" />
             <TableColumn fx:id="column2" editable="false" prefWidth="96.0" resizable="false" sortable="false" text="ID Члена семьи" />
             <TableColumn fx:id="column3" editable="false" prefWidth="132.0" resizable="false" sortable="false" text="ID Источника дохода" />
-            <TableColumn fx:id="column4" editable="false" prefWidth="78.0" resizable="false" sortable="false" text="Сумма" />
+            <TableColumn fx:id="column4" editable="false" prefWidth="78.0" resizable="false" text="Сумма" />
             <TableColumn fx:id="column5" editable="false" prefWidth="254.0" resizable="false" sortable="false" text="Описание" />
-            <TableColumn fx:id="column6" editable="false" prefWidth="62.0" resizable="false" sortable="false" text="Статус" />
+            <TableColumn fx:id="column6" editable="false" prefWidth="62.0" resizable="false" text="Статус" />
             <TableColumn fx:id="column7" editable="false" prefWidth="125.0" resizable="false" sortable="false" text="Комментарий" />
         </columns>
         <columnResizePolicy>

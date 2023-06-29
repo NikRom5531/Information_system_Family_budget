@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.StatisticsController">
+    <ImageView fitHeight="512.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../images/income.jpg" />
+    </ImageView>
+    <Label layoutX="23.0" layoutY="6.0" text="Статистика доходов и расходов" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <Button layoutX="837.0" layoutY="10.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Назад" textAlignment="CENTER" />
+        <Button layoutX="758.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRefreshButtonClick" text="Обновить" />
+    <!--    <Button layoutX="586.0" layoutY="461.0" mnemonicParsing="false" onAction="#createReport" prefHeight="30.0" prefWidth="146.0" text="Составить отчёт" />-->
+        <Button layoutX="740.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="30.0" prefWidth="146.0" text="Очистить поля" />
+        <DatePicker fx:id="choice_date_from" layoutX="260.0" layoutY="422.0" onAction="#choiceDateFrom" prefHeight="30.0" prefWidth="115.0" promptText="Дата: От" />
+        <DatePicker fx:id="choice_date_to" layoutX="385.0" layoutY="422.0" onAction="#choiceDateTo" prefHeight="30.0" prefWidth="115.0" promptText="Дата: До" />
+    <!--    <TextField fx:id="choice_amount_from" layoutX="260.0" layoutY="384.0" onKeyReleased="#choiceAmountFrom" prefHeight="30.0" prefWidth="115.0" promptText="Сумма: От" />-->
+    <!--    <TextField fx:id="choice_amount_to" layoutX="385.0" layoutY="384.0" onKeyReleased="#choiceAmountTo" prefHeight="30.0" prefWidth="115.0" promptText="Сумма: До" />-->
+        <ComboBox fx:id="choice_family_member" layoutX="14.0" layoutY="422.0" onAction="#choiceFamilyMember" prefHeight="30.0" prefWidth="240.0" promptText="Выберите члена семьи" />
+        <ComboBox fx:id="choice_expense_income" layoutX="260.0" layoutY="461.0" onAction="#choiceExpInc" prefHeight="30.0" prefWidth="240.0" promptText="Доходы и расходы" />
+    <!--    <ComboBox fx:id="choice_category" layoutX="14.0" layoutY="461.0" onAction="#choiceCategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите категорию дохода" />-->
+    <!--    <ComboBox fx:id="choice_subcategory" layoutX="260.0" layoutY="461.0" onAction="#choiceSubcategory" prefHeight="30.0" prefWidth="240.0" promptText="Выберите подкатегорию дохода" />-->
+        <ComboBox fx:id="choice_status" layoutX="14.0" layoutY="461.0" onAction="#choiceStatus" prefHeight="30.0" prefWidth="240.0" promptText="Выберите статус" />
+    <LineChart fx:id="lineChart" alternativeColumnFillVisible="true" layoutX="14.0" layoutY="40.0" prefHeight="374.0" prefWidth="872.0">
+        <xAxis>
+            <CategoryAxis side="BOTTOM" fx:id="xAxis">
+                <tickLabelFont>
+                    <Font name="System Bold" size="11.0" />
+                </tickLabelFont>
+            </CategoryAxis>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT">
+                <tickLabelFont>
+                    <Font name="System Bold" size="11.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+    </LineChart>
+</AnchorPane>
