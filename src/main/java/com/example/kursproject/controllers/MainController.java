@@ -23,7 +23,7 @@ public class MainController {
         ControlStages.changeScene(URLs.URL_TABLES);
     }
 
-    public void onOpenStatistics() throws IOException {
-        ControlStages.changeScene(URLs.URL_STATISTICS);
+    public void onOpenReference() throws IOException {
+        ControlStages.changeScene(URLs.URL_REFERENCE);
     }
 }

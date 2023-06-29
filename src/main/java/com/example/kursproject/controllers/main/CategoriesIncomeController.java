@@ -44,7 +44,7 @@ public class CategoriesIncomeController {
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene("scenes/tables-window.fxml");
+        ControlStages.changeScene(URLs.URL_REFERENCE);
     }
 
     @FXML

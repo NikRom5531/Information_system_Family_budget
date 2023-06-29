@@ -3,6 +3,7 @@ package com.example.kursproject;
 public class URLs {
     public static final String URL_MAIN = "scenes/main-window.fxml";
     public static final String URL_TABLES = "scenes/tables-window.fxml";
+    public static final String URL_REFERENCE = "scenes/reference-window.fxml";
     public static final String URL_STATISTICS = "scenes/statistics/statistics-window.fxml";
     /////
     public static final String URL_INCOME_T = "scenes/tables/income-window.fxml";
@@ -22,7 +23,6 @@ public class URLs {
     public static final String URL_EXPENSE_CATEGORIES_V = "scenes/views/view-categories-expenditure-window.fxml";
     public static final String URL_ADD_FAMILY_MEMBER = "scenes/interaction-add-family-members-windows.fxml";
     public static final String URL_EDIT_FAMILY_MEMBER = "scenes/interaction-edit-family-members-windows.fxml";
-//    public static final String URL_ = "";
 //    public static final String URL_ = "";
 //    public static final String URL_ = "";
 //    public static final String URL_ = "";

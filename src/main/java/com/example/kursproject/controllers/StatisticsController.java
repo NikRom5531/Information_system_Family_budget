@@ -106,7 +106,7 @@ public class StatisticsController {
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_MAIN);
+        ControlStages.changeScene(URLs.URL_TABLES);
     }
 
     @FXML
@@ -129,7 +129,6 @@ public class StatisticsController {
         searchOnField();
     }
 
-
     @FXML
     protected void onRefreshButtonClick() {
         initData();
@@ -148,6 +147,7 @@ public class StatisticsController {
         initDatePickers();
         initData();
     }
+
     private void searchOnField() {
         StringBuilder sqlQuery = new StringBuilder();
         if (choice_date_from != null && choice_date_to != null) { // date BETWEEN 'начальная_дата' AND 'конечная_дата'
@@ -175,12 +175,15 @@ public class StatisticsController {
         if (!sqlQuery.toString().trim().isEmpty()) { // 0 - все, 1 - Income, 2 - Expense
             ObservableList<Income> incomes = FXCollections.observableArrayList();
             ObservableList<Expenses> expenses = FXCollections.observableArrayList();
-            if (choice_expense_income.getSelectionModel().getSelectedIndex() != 2) incomes = CommandsSQL.filterData(INCOME, sqlQuery + " ORDER BY date", Income.class);
-            if (choice_expense_income.getSelectionModel().getSelectedIndex() != 1) expenses = CommandsSQL.filterData(EXPENSES, sqlQuery + " ORDER BY date", Expenses.class);
+            if (choice_expense_income.getSelectionModel().getSelectedIndex() != 2)
+                incomes = CommandsSQL.filterData(INCOME, sqlQuery + " ORDER BY date", Income.class);
+            if (choice_expense_income.getSelectionModel().getSelectedIndex() != 1)
+                expenses = CommandsSQL.filterData(EXPENSES, sqlQuery + " ORDER BY date", Expenses.class);
             setLineChart(incomes, expenses);
         } else initData();
     }
-    private void setLineChart(ObservableList<Income> incomes, ObservableList<Expenses> expenses){
+
+    private void setLineChart(ObservableList<Income> incomes, ObservableList<Expenses> expenses) {
         lineChart.getData().clear();
         lineChart.setAnimated(false);
         lineChart.setLegendVisible(true);
@@ -207,8 +210,9 @@ public class StatisticsController {
                 }
             }
             // Если данные уже существуют, добавляем к существующему значению
-            if (existingIncomeData != null) existingIncomeData.setYValue(existingIncomeData.getYValue().doubleValue() + amount);
-            // В противном случае создаем новые данные для даты
+            if (existingIncomeData != null)
+                existingIncomeData.setYValue(existingIncomeData.getYValue().doubleValue() + amount);
+                // В противном случае создаем новые данные для даты
             else incomesSeries.getData().add(new XYChart.Data<>(dateString, amount));
         }
         for (Expenses expense : expenses) {
@@ -224,11 +228,11 @@ public class StatisticsController {
                 }
             }
             // Если данные уже существуют, добавляем к существующему значению
-            if (existingExpenseData != null) existingExpenseData.setYValue(existingExpenseData.getYValue().doubleValue() + amount);
-            // В противном случае создаем новые данные для даты
+            if (existingExpenseData != null)
+                existingExpenseData.setYValue(existingExpenseData.getYValue().doubleValue() + amount);
+                // В противном случае создаем новые данные для даты
             else expensesSeries.getData().add(new XYChart.Data<>(dateString, amount));
         }
         lineChart.getData().addAll(expensesSeries, incomesSeries);
     }
-
 }

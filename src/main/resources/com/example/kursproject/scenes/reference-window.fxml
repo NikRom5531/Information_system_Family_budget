@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursproject.controllers.ReferenceController">
+    <ImageView fitHeight="519.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/main.jpg" />
+    </ImageView>
+    <Button layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#onGoToFamilyMembersWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по членам семьи" />
+    <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onGoToSourcesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по источникам доходов" />
+    <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" onAction="#onGoToCategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по категориям доходов" />
+    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onGoToSubcategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по подкатегориям доходов" />
+    <Button layoutX="325.0" layoutY="184.0" mnemonicParsing="false" onAction="#onGoToCategoriesExpenditureWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по категориям расходов" />
+    <Button layoutX="325.0" layoutY="218.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0" prefWidth="250.0" text="Назад" />
+    <Label layoutX="340.0" layoutY="4.0" text="СПРАВОЧНИКИ" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="28.0" />
+        </font>
+    </Label>
+    <Label layoutX="382.0" layoutY="455.0" text="Информационная система «Семейный бюджет»" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+</AnchorPane>

@@ -17,6 +17,26 @@ public class Application extends javafx.application.Application {
         launch();
     }
 }
+
+/*
+    Название                | Name                      | Controller                        | table
+    --------------------------------------------------------------------------------------------------------------------
+    доходы                  | income                    | IncomeController                  | incomes
+    расходы                 | expenses                  | ExpensesController                | expenses
+    члены семьи             | family members            | FamilyMembersController           | family_members
+    источники доходов       | sources of income         | SourcesIncomeController           | income_sources
+    категории доходов       | income categories         | CategoriesIncomeController        | income_categories
+    подкатегории доходов    | income subcategories      | SubcategoriesIncomeController     | income_subcategories
+    категории расходов      | expenditure categories    | CategoriesExpenditureController   | expense_categories
+    --------------------------------------------------------------------------------------------------------------------
+
+    onGoToExpensesWindowButtonClick                 // "Открыть таблицу расходов"
+    onGoToFamilyMembersWindowButtonClick            // "Открыть таблицу членов семьи"
+    onGoToSourcesIncomeWindowButtonClick            // "Открыть таблицу источников дохода"
+    onGoToCategoriesIncomeWindowButtonClick         // "Открыть таблицу категорий доходов"
+    onGoToSubcategoriesIncomeWindowButtonClick      // "Открыть таблицу подкатегорий дохода"
+    onGoToCategoriesExpenditureWindowButtonClick    // "Открыть таблицу категорий расходов"
+*/
 /*
     14. Проектирование информационной системы в  СУБД MS Access
     15. Разработка логического и физического уровня модели данных в ERwin

@@ -82,7 +82,7 @@ public class FamilyMembersController {
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {
-        ControlStages.changeScene(URLs.URL_TABLES);
+        ControlStages.changeScene(URLs.URL_REFERENCE);
     }
 
     @FXML
