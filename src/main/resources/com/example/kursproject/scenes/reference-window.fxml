@@ -9,12 +9,12 @@
     <ImageView fitHeight="519.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/main.jpg" />
     </ImageView>
-    <Button layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#onGoToFamilyMembersWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по членам семьи" />
-    <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onGoToSourcesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по источникам доходов" />
-    <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" onAction="#onGoToCategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по категориям доходов" />
-    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onGoToSubcategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по подкатегориям доходов" />
-    <Button layoutX="325.0" layoutY="184.0" mnemonicParsing="false" onAction="#onGoToCategoriesExpenditureWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Справочник по категориям расходов" />
-    <Button layoutX="325.0" layoutY="218.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0" prefWidth="250.0" text="Назад" />
+    <Button layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#onGoToFamilyMembersWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Члены семьи" />
+    <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onGoToSourcesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Источники доходов" />
+    <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" onAction="#onGoToCategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Категории доходов" />
+    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onGoToSubcategoriesIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Подкатегории доходов" />
+    <Button layoutX="325.0" layoutY="184.0" mnemonicParsing="false" onAction="#onGoToCategoriesExpenditureWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Категории расходов" />
+    <Button layoutX="325.0" layoutY="218.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0" prefWidth="250.0" text="Вернуться в главное меню" />
     <Label layoutX="340.0" layoutY="4.0" text="СПРАВОЧНИКИ" textFill="WHITE">
         <font>
             <Font name="System Bold" size="28.0" />

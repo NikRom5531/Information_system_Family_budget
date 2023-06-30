@@ -12,7 +12,7 @@
     <Button cache="true" layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#onGoToIncomeWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Доходы" />
     <Button layoutX="325.0" layoutY="82.0" mnemonicParsing="false" onAction="#onGoToExpensesWindowButtonClick" prefHeight="25.0" prefWidth="250.0" text="Расходы" />
     <Button layoutX="325.0" layoutY="116.0" mnemonicParsing="false" onAction="#onOpenStatistics" prefHeight="25.0" prefWidth="250.0" text="Статистика доходов и расходов" />
-    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0" prefWidth="250.0" text="Назад" />
+    <Button layoutX="325.0" layoutY="150.0" mnemonicParsing="false" onAction="#onBackMain" prefHeight="25.0" prefWidth="250.0" text="Вернуться в главное меню" />
     <Label layoutX="681.0" layoutY="15.0" text="Общее количество средств:" textFill="WHITE">
         <font>
             <Font name="System Bold" size="15.0" />
