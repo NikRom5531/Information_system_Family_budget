@@ -306,6 +306,7 @@ public class CommandsSQL {
 
     public static void ErrorMessageSQL(SQLException e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        General.setIconWindow(alert);
         alert.setTitle("Ошибка!");
         alert.setHeaderText(e.getMessage());
         VBox dialogPaneContent = new VBox();
