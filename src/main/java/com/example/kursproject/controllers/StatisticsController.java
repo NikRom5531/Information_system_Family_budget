@@ -81,15 +81,19 @@ public class StatisticsController {
         LocalDate maxDateExp = LocalDate.MIN;
         for (Income item : incomes) {
             java.sql.Date sqlDate = (java.sql.Date) item.getDate();
-            LocalDate localDate = sqlDate.toLocalDate();
-            if (localDate.isBefore(minDateInc)) minDateInc = localDate;
-            if (localDate.isAfter(maxDateInc)) maxDateInc = localDate;
+            if (sqlDate != null) {
+                LocalDate localDate = sqlDate.toLocalDate();
+                if (localDate.isBefore(minDateInc)) minDateInc = localDate;
+                if (localDate.isAfter(maxDateInc)) maxDateInc = localDate;
+            }
         }
         for (Expenses item : expenses) {
             java.sql.Date sqlDate = (java.sql.Date) item.getDate();
-            LocalDate localDate = sqlDate.toLocalDate();
-            if (localDate.isBefore(minDateExp)) minDateExp = localDate;
-            if (localDate.isAfter(maxDateExp)) maxDateExp = localDate;
+            if (sqlDate != null) {
+                LocalDate localDate = sqlDate.toLocalDate();
+                if (localDate.isBefore(minDateExp)) minDateExp = localDate;
+                if (localDate.isAfter(maxDateExp)) maxDateExp = localDate;
+            }
         }
         LocalDate minDate;
         LocalDate maxDate;
@@ -98,11 +102,16 @@ public class StatisticsController {
         if (maxDateExp.isAfter(maxDateInc)) maxDate = maxDateExp;
         else maxDate = maxDateInc;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String formattedMinDate = minDate.format(formatter);
-        String formattedMaxDate = maxDate.format(formatter);
-        choice_date_from.setValue(LocalDate.parse(formattedMinDate, formatter));
-        choice_date_to.setValue(LocalDate.parse(formattedMaxDate, formatter));
+        if (minDate != LocalDate.MAX) {
+            String formattedMinDate = minDate.format(formatter);
+            choice_date_from.setValue(LocalDate.parse(formattedMinDate, formatter));
+        }
+        if (maxDate != LocalDate.MIN) {
+            String formattedMaxDate = maxDate.format(formatter);
+            choice_date_to.setValue(LocalDate.parse(formattedMaxDate, formatter));
+        }
     }
+
 
     @FXML
     protected void onGoBackButtonClick() throws IOException {

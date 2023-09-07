@@ -141,22 +141,27 @@ public class ExpensesController {
             }
         }
     }
-
     private void initDatePickers() {
         ObservableList<Expenses> expenses = CommandsSQL.readDataFromTable(EXPENSES, Expenses.class);
         LocalDate minDate = LocalDate.MAX;
         LocalDate maxDate = LocalDate.MIN;
         for (Expenses item : expenses) {
             java.sql.Date sqlDate = (java.sql.Date) item.getDate();
-            LocalDate localDate = sqlDate.toLocalDate();
-            if (localDate.isBefore(minDate)) minDate = localDate;
-            if (localDate.isAfter(maxDate)) maxDate = localDate;
+            if (sqlDate != null) {
+                LocalDate localDate = sqlDate.toLocalDate();
+                if (localDate.isBefore(minDate)) minDate = localDate;
+                if (localDate.isAfter(maxDate)) maxDate = localDate;
+            }
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String formattedMinDate = minDate.format(formatter);
-        String formattedMaxDate = maxDate.format(formatter);
-        choice_date_from.setValue(LocalDate.parse(formattedMinDate, formatter));
-        choice_date_to.setValue(LocalDate.parse(formattedMaxDate, formatter));
+        if (minDate != LocalDate.MAX) {
+            String formattedMinDate = minDate.format(formatter);
+            choice_date_from.setValue(LocalDate.parse(formattedMinDate, formatter));
+        }
+        if (maxDate != LocalDate.MIN) {
+            String formattedMaxDate = maxDate.format(formatter);
+            choice_date_to.setValue(LocalDate.parse(formattedMaxDate, formatter));
+        }
     }
 
     @FXML
@@ -206,7 +211,8 @@ public class ExpensesController {
                     && CommandsSQL.checkID(item.getFamily_member_id(), "family_members")
                     && CommandsSQL.checkID(item.getExpense_category_id(), "expense_categories")
                     && 0 < item.getAmount()
-                    && (!item.isStatus() || (item.isStatus() && (item.getAmount() <= CommandsSQL.calculateTotalBalance())))
+                    && balance(item, 0)
+//                    && (!item.isStatus() || (item.isStatus() && (item.getAmount() < CommandsSQL.calculateTotalBalance())))
                     && !item.getDescription().trim().isEmpty()) {
                 if (CommandsSQL.insertDataIntoTable(EXPENSES, new Expenses(CommandsSQL.getFreeID(EXPENSES),
                         item.getDate(), item.getFamily_member_id(), item.getExpense_category_id(),
@@ -227,7 +233,8 @@ public class ExpensesController {
                         && CommandsSQL.checkID(item.getFamily_member_id(), "family_members")
                         && CommandsSQL.checkID(item.getExpense_category_id(), "expense_categories")
                         && 0 < item.getAmount()
-                        && (!item.isStatus() || (item.isStatus() && ((item.getAmount() - amount) <= CommandsSQL.calculateTotalBalance())))
+                        && balance(item, amount)
+//                        && (!item.isStatus() || (item.isStatus() && ((item.getAmount() - amount) <= CommandsSQL.calculateTotalBalance())))
                         && !item.getDescription().trim().isEmpty()) {
                     if (CommandsSQL.updateDataInTable(EXPENSES, item, fieldsTable, "id = " + item.getId())) {
                         searchOnField();
@@ -256,7 +263,10 @@ public class ExpensesController {
             }
         } else General.ErrorWindow("Не была выбрана строка для удаления!");
     }
-
+    private static boolean balance(Expenses item, double amount) {
+        if (item.isStatus()) return (CommandsSQL.calculateTotalBalance() - (item.getAmount() - amount)) >= 0;
+        else return true;
+    }
     @FXML
     protected void gotoTable() throws IOException {
         ControlStages.changeScene(URLs.URL_EXPENSES_T);

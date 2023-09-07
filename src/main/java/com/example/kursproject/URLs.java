@@ -23,7 +23,7 @@ public class URLs {
     public static final String URL_EXPENSE_CATEGORIES_V = "scenes/views/view-categories-expenditure-window.fxml";
     public static final String URL_ADD_FAMILY_MEMBER = "scenes/interaction-add-family-members-windows.fxml";
     public static final String URL_EDIT_FAMILY_MEMBER = "scenes/interaction-edit-family-members-windows.fxml";
-//    public static final String URL_ = "";
+//    public static final String URL_DATABASE_CONTROL = "scenes/db-control.fxml";
 //    public static final String URL_ = "";
 //    public static final String URL_ = "";
 //    public static final String URL_ = "";

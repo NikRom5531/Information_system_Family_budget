@@ -2,8 +2,7 @@ package com.example.kursproject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.lang.reflect.Field;
@@ -13,9 +12,48 @@ import java.sql.*;
 import java.util.*;
 
 public class CommandsSQL {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "root";
+    private static final String DB_URL_POSTGRE = "jdbc:postgresql://localhost:5432/family_budget";
+    private static String DB_USER = "";
+    private static String DB_PASSWORD = "";
+    private static boolean firstTimeAuth = true;
+    public static void authUser() {
+        while (firstTimeAuth) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Вход");
+            alert.setHeaderText(null);
+            VBox dialogPaneContent = new VBox();
+            Label userLabel = new Label("Имя пользователя");
+            TextField userTextField = new TextField();
+            Label passwordLabel = new Label("Пароль");
+            PasswordField passwordTextField = new PasswordField();
+            dialogPaneContent.getChildren().addAll(userLabel, userTextField, passwordLabel, passwordTextField);
+            alert.getDialogPane().setContent(dialogPaneContent);
+            ButtonType enter = new ButtonType("Войти");
+            alert.getButtonTypes().setAll(enter);
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.isPresent() && option.get() == enter) {
+                DB_USER = userTextField.getText();
+                DB_PASSWORD = passwordTextField.getText();
+                try {
+                    Connection connection = DriverManager.getConnection(DB_URL_POSTGRE, DB_USER, DB_PASSWORD);
+                    firstTimeAuth = false;
+                } catch (SQLException e) {
+                    General.ErrorWindow("Неверный логин или пароль!");
+                }
+            } else System.exit(0);
+        }
+    }
+    private static Connection connection() {
+        authUser();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(DB_URL_POSTGRE, DB_USER, DB_PASSWORD);
+        } catch (SQLException e) {
+            ErrorMessageSQL(e);
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
     public static <T> void fillTable(TableView<T> tableView, String nameTable, Class<T> tClass) {
         tableView.setItems(readDataFromTable(nameTable, tClass));
@@ -23,7 +61,7 @@ public class CommandsSQL {
 
     public static <T> ObservableList<T> getColumnValues(String tableName, String columnName, Class<T> valueType, boolean sorted) {
         ObservableList<T> values = FXCollections.observableArrayList();
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String selectQuery = "SELECT DISTINCT " + columnName + " FROM " + tableName;
             if (sorted) selectQuery += " ORDER BY " + columnName;
             try (Statement statement = connection.createStatement();
@@ -34,6 +72,7 @@ public class CommandsSQL {
                 }
             }
         } catch (SQLException e) {
+            ErrorMessageSQL(e);
             e.printStackTrace();
         }
         return values;
@@ -41,7 +80,7 @@ public class CommandsSQL {
 
     public static <T> ObservableList<T> filterData(String tableName, String filterQuery, Class<T> objectType) {
         ObservableList<T> filteredData = FXCollections.observableArrayList();
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String selectQuery = "SELECT * FROM " + tableName + " WHERE " + filterQuery;
             try (PreparedStatement statement = connection.prepareStatement(selectQuery);
                  ResultSet resultSet = statement.executeQuery()) {
@@ -69,6 +108,8 @@ public class CommandsSQL {
                 }
             }
         } catch (SQLException | ReflectiveOperationException e) {
+            assert e instanceof SQLException;
+            ErrorMessageSQL((SQLException) e);
             e.printStackTrace();
         }
         return filteredData;
@@ -76,7 +117,7 @@ public class CommandsSQL {
 
     public static <T> T retrieveObjectById(String tableName, int id, Class<T> objectType) {
         T object = null;
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -114,7 +155,7 @@ public class CommandsSQL {
 
     public static <T> ObservableList<T> readDataFromTable(String tableName, Class<T> objectType) {
         ObservableList<T> results = FXCollections.observableArrayList();
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String selectQuery = "SELECT * FROM " + tableName + " ORDER BY id";
             try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(selectQuery)) {
                 ResultSetMetaData metaData = resultSet.getMetaData();
@@ -150,7 +191,7 @@ public class CommandsSQL {
     }
 
     public static <T> boolean insertDataIntoTable(String tableName, T data, List<String> fieldNames) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String insertQuery = generateInsertQuery(tableName, data, fieldNames);
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
                 setPreparedStatementParameters(statement, data, fieldNames);
@@ -165,7 +206,7 @@ public class CommandsSQL {
     }
 
     public static <T> boolean updateDataInTable(String tableName, T data, List<String> fieldNames, String condition) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String updateQuery = generateUpdateQuery(tableName, data, fieldNames, condition);
             try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
                 setPreparedStatementParameters(statement, data, fieldNames);
@@ -180,7 +221,7 @@ public class CommandsSQL {
     }
 
     public static boolean deleteDataFromTable(String tableName, String condition) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = connection()) {
             String deleteQuery = generateDeleteQuery(tableName, condition);
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(deleteQuery);
@@ -234,7 +275,8 @@ public class CommandsSQL {
     private static Field[] getRequestFields(Field[] fields, List<String> fieldNames) { //Parameter[] parameters
         Field[] results = new Field[fieldNames.size()];
         int i = 0;
-        for (Field field : fields) for (String parameter : fieldNames) if (field.getName().equals(parameter)) results[i++] = field;
+        for (Field field : fields)
+            for (String parameter : fieldNames) if (field.getName().equals(parameter)) results[i++] = field;
         return results;
     }
 
@@ -256,7 +298,8 @@ public class CommandsSQL {
                 else if (value instanceof String) statement.setString(parameterIndex, (String) value);
                 else if (value instanceof Double) statement.setDouble(parameterIndex, (Double) value);
                 else if (value instanceof Boolean) statement.setBoolean(parameterIndex, (Boolean) value);
-                else if (value instanceof java.util.Date) statement.setDate(parameterIndex, new java.sql.Date(((java.util.Date) value).getTime()));
+                else if (value instanceof java.util.Date)
+                    statement.setDate(parameterIndex, new java.sql.Date(((java.util.Date) value).getTime()));
                 // Можно добавить обработку других типов данных, если необходимо
             } catch (SQLException e) {
                 ErrorMessageSQL(e);
@@ -281,7 +324,7 @@ public class CommandsSQL {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            connection = connection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM " + tableName);
             while (resultSet.next()) {
@@ -313,17 +356,19 @@ public class CommandsSQL {
         alert.getDialogPane().setContent(dialogPaneContent);
         alert.showAndWait();
     }
-
-    public static double calculateTotalBalance() {
-        double totalFunds = 0.0;
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(amount) AS TotalFunds FROM (SELECT amount FROM income WHERE status = 'true' UNION ALL SELECT amount FROM expenses WHERE status = 'true') AS AllFunds")) {
-            if (rs.next()) totalFunds = rs.getDouble("TotalFunds");
+    private static double getAmounts(String table) {
+        double result = 0.0;
+        try (Connection connection = connection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery("SELECT SUM(amount) AS result FROM " + table + " WHERE status = 'true'")) {
+            if (resultSet.next()) result = resultSet.getDouble("result");
         } catch (SQLException e) {
             ErrorMessageSQL(e);
             e.printStackTrace();
         }
-        return totalFunds;
+        return result;
+    }
+    public static double calculateTotalBalance() {
+        return getAmounts("income") - getAmounts("expenses");
     }
 }

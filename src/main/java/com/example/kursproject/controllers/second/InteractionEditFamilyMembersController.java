@@ -33,13 +33,10 @@ public class InteractionEditFamilyMembersController {
 
     @FXML
     protected void clickConfirmFamilyMember() {
-        General.setColorTFA(field_first_name, "00FF00");
-        General.setColorTFA(field_last_name, "00FF00");
-        if (field_first_name.getText().trim().isEmpty() || field_last_name.getText().trim().isEmpty()) {
-            if (field_first_name.getText().trim().isEmpty()) General.setColorTFA(field_first_name, "FF0000");
-            if (field_last_name.getText().trim().isEmpty()) General.setColorTFA(field_last_name, "FF0000");
-            System.out.println("Error!");
-        } else {
+        boolean check = true;
+        if (General.isEmptyTFA(field_first_name)) check = false;
+        if (General.isEmptyTFA(field_last_name)) check = false;
+        if (check) {
             String first_name = field_first_name.getText().trim(),
                     last_name = field_last_name.getText().trim(),
                     addition_info = field_additional_info.getText().trim();

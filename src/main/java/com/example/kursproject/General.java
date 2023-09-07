@@ -40,6 +40,14 @@ public class General {
         if (component instanceof TextField) ((TextField) component).setStyle(style);
         else if (component instanceof TextArea) ((TextArea) component).setStyle(style);
     }
+    public static <T> boolean isEmptyTFA(T component) {
+        boolean result = false;
+        if (component instanceof TextField) result = ((TextField) component).getText().trim().isEmpty();
+        else if (component instanceof TextArea) result = ((TextArea) component).getText().trim().isEmpty();
+        if (!result) General.setColorTFA(component, "00FF00");
+        else General.setColorTFA(component, "FF0000");
+        return result;
+    }
 
     public static <T> ObservableList<T> filterTableData(ObservableList<T> data, String searchText, TableView<T> tableView) {
         if (searchText == null || searchText.isEmpty()) return data;
@@ -211,9 +219,7 @@ public class General {
     public static <T> void setIconWindow(T iconWindow) {
         Stage stage = null;
         if (iconWindow instanceof Alert) stage = (Stage) ((Alert) iconWindow).getDialogPane().getScene().getWindow();
-        else if (iconWindow instanceof Dialog)
-            stage = (Stage) ((Dialog<?>) iconWindow).getDialogPane().getScene().getWindow();
-        if (stage != null)
-            stage.getIcons().add(new Image(Objects.requireNonNull(General.class.getResourceAsStream("images/AppIcon.png"))));
+        else if (iconWindow instanceof Dialog) stage = (Stage) ((Dialog<?>) iconWindow).getDialogPane().getScene().getWindow();
+        if (stage != null) stage.getIcons().add(new Image(Objects.requireNonNull(General.class.getResourceAsStream("images/AppIcon.png"))));
     }
 }
